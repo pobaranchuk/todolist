@@ -22,8 +22,14 @@ function App() {
     ]
     return (
         <div className="App">
-            <ToDoList title={toDoListTitle_1}/>
-            <ToDoList title={toDoListTitle_2}/>
+            <ToDoList
+                title={toDoListTitle_1}
+                tasks={tasks_1}
+            />
+            <ToDoList
+                title={toDoListTitle_2}
+                tasks={tasks_2}
+            />
         </div>
     );
 }
