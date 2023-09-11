@@ -1,12 +1,25 @@
 import React from 'react';
 import './App.css';
 import './ToDoList';
-import ToDoList from "./ToDoList";
+import ToDoList, {TaskType} from "./ToDoList";
+
 
 function App() {
     const toDoListTitle_1: string = "What to learn";
     const toDoListTitle_2: string = "What to learn";
 
+    const tasks_1: Array<TaskType> = [
+        { id: 1, isDone: true, title: "TML&CSS"},
+        { id: 2, isDone: true, title: "TML&CSS"},
+        { id: 3, isDone: false, title: "TML&CSS"},
+        { id: 3, isDone: true, title: "TML&CSS"}
+    ]
+    const tasks_2: Array<TaskType> = [
+        { id: 1, isDone: true, title: "TML&CSS"},
+        { id: 2, isDone: true, title: "TML&CSS"},
+        { id: 3, isDone: false, title: "TML&CSS"},
+        { id: 3, isDone: true, title: "TML&CSS"}
+    ]
     return (
         <div className="App">
             <ToDoList title={toDoListTitle_1}/>

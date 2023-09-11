@@ -3,11 +3,19 @@ import React from 'react';
 type ToDoListPropsType = {
     title: string;
 }
+
+export type TaskType = {
+    id: number,
+    isDone: boolean,
+    title: string
+}
+
 const ToDoList: React.FC<ToDoListPropsType> = (props) => {
+    const title = props.title;
     return (
         <div className="todolist">
             <div>
-                <h3>{props.title}</h3>
+                <h3>{title}</h3>
                 <div>
                     <input/>
                     <button>+</button>
