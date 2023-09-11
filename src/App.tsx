@@ -4,10 +4,13 @@ import './ToDoList';
 import ToDoList from "./ToDoList";
 
 function App() {
+    const toDoListTitle_1: string = "What to learn";
+    const toDoListTitle_2: string = "What to learn";
+
     return (
         <div className="App">
-            <ToDoList title={"What to learn"}/>
-            <ToDoList title={"What to buy"}/>
+            <ToDoList title={toDoListTitle_1}/>
+            <ToDoList title={toDoListTitle_2}/>
         </div>
     );
 }
