@@ -13,9 +13,12 @@ type ToDoListPropsType = {
 
 
 
-const ToDoList: React.FC<ToDoListPropsType> = (props) => {
-
-    const {title, tasks} = props;
+const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks}) => { //3. Деструктуризация сразу
+    //1.
+    //const title = props.title;
+    //const tasks = props.tasks;
+    //2.
+    //const {title, tasks} = props;
 
     return (
         <div className="todolist">
@@ -26,9 +29,18 @@ const ToDoList: React.FC<ToDoListPropsType> = (props) => {
                     <button>+</button>
                 </div>
                 <ul>
-                    <li><input type="checkbox" checked={true}/> <span>HTML&CSS</span></li>
-                    <li><input type="checkbox" checked={true}/> <span>JS</span></li>
-                    <li><input type="checkbox" checked={false}/> <span>React</span></li>
+                    <li>
+                        <input type="checkbox" checked={tasks[0].isDone}/>
+                        <span>{tasks[0].title}</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" checked={tasks[1].isDone}/>
+                        <span>{tasks[1].title}</span>
+                    </li>
+                    <li>
+                        <input type="checkbox" checked={tasks[2].isDone}/>
+                        <span>{tasks[2].title}</span>
+                    </li>
                 </ul>
                 <div>
                     <button>All</button>
