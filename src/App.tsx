@@ -9,16 +9,14 @@ function App() {
     const toDoListTitle_2: string = "What to learn";
 
     const tasks_1: Array<TaskType> = [
-        { id: 1, isDone: true, title: "TML&CSS"},
-        { id: 2, isDone: true, title: "TML&CSS"},
-        { id: 3, isDone: false, title: "TML&CSS"},
-        { id: 3, isDone: true, title: "TML&CSS"}
+        { id: 1, isDone: true, title: "HTML&CSS"},
+        { id: 2, isDone: true, title: "JS"},
+        { id: 3, isDone: false, title: "ReactJS"}
     ]
     const tasks_2: Array<TaskType> = [
-        { id: 1, isDone: true, title: "TML&CSS"},
-        { id: 2, isDone: true, title: "TML&CSS"},
-        { id: 3, isDone: false, title: "TML&CSS"},
-        { id: 3, isDone: true, title: "TML&CSS"}
+        { id: 1, isDone: true, title: "Hello world"},
+        { id: 2, isDone: true, title: "I am Happy"},
+        { id: 3, isDone: true, title: "Yo"}
     ]
     return (
         <div className="App">
