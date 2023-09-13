@@ -18,6 +18,7 @@ function App() {
         { id: 2, isDone: true, title: "I am Happy"},
         { id: 3, isDone: true, title: "Yo"}
     ]
+
     return (
         <div className="App">
             <ToDoList
