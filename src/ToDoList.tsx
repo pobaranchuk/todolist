@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {FilterValuesType} from "./App";
 
 export type TaskType = {
-    id: number,
+    id: string,
     isDone: boolean,
     title: string
 }
@@ -10,11 +10,12 @@ export type TaskType = {
 type ToDoListPropsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: number) => void
+    addTask: (title: string) => void
+    removeTask: (taskId: string) => void
     changeFilter: (nextFilterValue: FilterValuesType) => void
 }
 
-const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, changeFilter}) => {
+const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, changeFilter, addTask}) => {
 
     const listItems: Array<JSX.Element> = tasks.map((task) => {
         const onClickRemoveTaskHandler = () =>  removeTask(task.id)
@@ -31,19 +32,36 @@ const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, change
         ? <ul>{listItems}</ul>
         : <span>Your tasksList is empty</span>
 
+    const [newTaskTitle, setNewTaskTitle] = useState("")
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {setNewTaskTitle(e.currentTarget.value)}
+    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLElement>) => {
+        if(e.key === 'Enter'){
+            addTask(newTaskTitle);
+            setNewTaskTitle("")
+        }
+    }
+    const addTaskHandler = () => {
+        addTask(newTaskTitle);
+        setNewTaskTitle("")// очистить поле инпута после нажания на плюс. То есть будет перерисовка в поле инпут
+    }
+
+
     return (
         <div className="todolist">
             <div>
                 <h3>{title}</h3>
                 <div>
-                    <input/>
-                    <button>+</button>
+                    <input value={newTaskTitle}
+                           onChange = {onChangeHandler}
+                           onKeyDown = {onKeyPressHandler}
+                    />
+                    <button onClick = {addTaskHandler}>+</button>
                 </div>
                 {tasksList}
                 <div>
-                    <button onClick={()=>changeFilter("All")}>All</button>
-                    <button onClick={()=>changeFilter("Active")}>Active</button>
-                    <button onClick={()=>changeFilter("Completed")}>Completed</button>
+                    <button onClick={(e)=>changeFilter("All")}>All</button>
+                    <button onClick={(e)=>changeFilter("Active")}>Active</button>
+                    <button onClick={(e)=>changeFilter("Completed")}>Completed</button>
                 </div>
             </div>
         </div>

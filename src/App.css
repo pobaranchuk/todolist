@@ -10,7 +10,7 @@
 }
 
 .todolist {
-  height: 224px;
+  height: fit-content;
   padding: 15px;
   border: 2px solid rgb(54, 80, 227);
   border-radius: 5px;

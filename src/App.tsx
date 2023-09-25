@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import './ToDoList';
 import ToDoList, {TaskType} from "./ToDoList";
+import {v1} from "uuid";
 
 export type FilterValuesType = "All"|"Active"|"Completed"
 
@@ -11,12 +12,12 @@ function App() {
     const toDoListTitle_1: string = "What to learn";
     //redux
     const [tasks, setTasks] =  useState ([
-        { id: 1, isDone: true, title: "HTML&CSS"},
-        { id: 2, isDone: true, title: "JS/TS"},
-        { id: 3, isDone: false, title: "REACT"},
-        { id: 4, isDone: true, title: "REDUX"}
+        { id: v1(), isDone: true, title: "HTML&CSS"},
+        { id: v1(), isDone: true, title: "JS/TS"},
+        { id: v1(), isDone: false, title: "REACT"},
+        { id: v1(), isDone: true, title: "REDUX"}
     ])
-    const removeTask = (taskId: number) => {
+    const removeTask = (taskId: string) => {
         const newTask : Array<TaskType> = [];
         for (let i = 0; i < tasks.length; i++) {
             if (tasks[i].id !== taskId){
@@ -24,6 +25,12 @@ function App() {
             }
         }
         setTasks(newTask);
+    }
+
+    const addTask = (title: string) => {
+        let newTask = { id: v1(), title: title, isDone : false}
+        let newTasks = [newTask, ...tasks] // деструктуризация масива
+        setTasks(newTasks)
     }
 // UI:
     const [filter, setFilter] = useState<FilterValuesType>("All")
@@ -44,8 +51,9 @@ function App() {
     return (
         <div className="App">
             <ToDoList
-                tasks={filteredTasksForRender}
                 title={toDoListTitle_1}
+                tasks={filteredTasksForRender}
+                addTask = {addTask}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
             />
