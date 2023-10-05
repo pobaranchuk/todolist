@@ -4,23 +4,24 @@ import './ToDoList';
 import ToDoList, {TaskType} from "./ToDoList";
 import {v1} from "uuid";
 
-export type FilterValuesType = "All"|"Active"|"Completed"
+export type FilterValuesType = "All" | "Active" | "Completed"
 
 //CRUD
 function App() {
     //BLL
     const toDoListTitle_1: string = "What to learn";
     //redux
-    const [tasks, setTasks] =  useState ([
-        { id: v1(), isDone: true, title: "HTML&CSS"},
-        { id: v1(), isDone: true, title: "JS/TS"},
-        { id: v1(), isDone: false, title: "REACT"},
-        { id: v1(), isDone: true, title: "REDUX"}
+    const [tasks, setTasks] = useState([
+        {id: v1(), isDone: true, title: "HTML&CSS"},
+        {id: v1(), isDone: true, title: "JS/TS"},
+        {id: v1(), isDone: false, title: "REACT"},
+        {id: v1(), isDone: true, title: "REDUX"}
     ])
+
     const removeTask = (taskId: string) => {
-        const newTask : Array<TaskType> = [];
+        const newTask: Array<TaskType> = [];
         for (let i = 0; i < tasks.length; i++) {
-            if (tasks[i].id !== taskId){
+            if (tasks[i].id !== taskId) {
                 newTask.push(tasks[i]);
             }
         }
@@ -28,16 +29,25 @@ function App() {
     }
 
     const addTask = (title: string) => {
-        let newTask = { id: v1(), title: title, isDone : false}
+        let newTask = {id: v1(), title: title, isDone: false}
         let newTasks = [newTask, ...tasks] // деструктуризация масива
         setTasks(newTasks)
     }
 // UI:
+
+    const changeStatus = (taskId: string, isDone: boolean) => {
+        let task = tasks.find(t => t.id === taskId)
+        if (task) {
+            task.isDone = isDone;
+        }
+        setTasks([...tasks])
+    }
+
     const [filter, setFilter] = useState<FilterValuesType>("All")
     const getFilteredTasksForRender = (allTasks: Array<TaskType>, filterValue: FilterValuesType): Array<TaskType> => {
         switch (filterValue) {
             case "Active":
-                return  allTasks.filter(task => !task.isDone)
+                return allTasks.filter(task => !task.isDone)
             case "Completed":
                 return allTasks.filter(task => task.isDone)
             default:
@@ -53,9 +63,11 @@ function App() {
             <ToDoList
                 title={toDoListTitle_1}
                 tasks={filteredTasksForRender}
-                addTask = {addTask}
+                addTask={addTask}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
+                changeStatus = {changeStatus}
+                filter = {filter}
             />
         </div>
     );
