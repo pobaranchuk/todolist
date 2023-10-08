@@ -7,7 +7,7 @@ export type TaskType = {
     title: string
 }
 
-type ToDoListPropsType = {
+export type ToDoListPropsType = {
     title: string
     tasks: Array<TaskType>
     addTask: (title: string) => void
@@ -62,9 +62,6 @@ const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, change
             setError("Title is required!")
         }
     }
-
-
-
 
     return (
         <div className="todolist">

@@ -17,7 +17,6 @@ function App() {
         {id: v1(), isDone: false, title: "REACT"},
         {id: v1(), isDone: true, title: "REDUX"}
     ])
-
     const removeTask = (taskId: string) => {
         const newTask: Array<TaskType> = [];
         for (let i = 0; i < tasks.length; i++) {
@@ -30,7 +29,7 @@ function App() {
 
     const addTask = (title: string) => {
         let newTask = {id: v1(), title: title, isDone: false}
-        let newTasks = [newTask, ...tasks] // деструктуризация масива
+        let newTasks = [newTask, ...tasks] // деструктуризация масива,  копируем старый и добавляем новый элемент в конец
         setTasks(newTasks)
     }
 // UI:
@@ -58,17 +57,27 @@ function App() {
         setFilter(nextFilterValue)
     }
     const filteredTasksForRender: Array<TaskType> = getFilteredTasksForRender(tasks, filter)
+
+    let todoList: Array<> = [
+        {id: v1(), title: "What to learn", filter: "Active"},
+        {id: v1(), title: "What to buy", filter: "Completed"}
+    ]
+
+
     return (
         <div className="App">
-            <ToDoList
-                title={toDoListTitle_1}
-                tasks={filteredTasksForRender}
-                addTask={addTask}
-                removeTask={removeTask}
-                changeFilter={changeFilter}
-                changeStatus = {changeStatus}
-                filter = {filter}
-            />
+            {todoList.map((ul) => {
+                return <ToDoList
+                    title={ul.title}
+                    tasks={filteredTasksForRender}
+                    addTask={addTask}
+                    removeTask={removeTask}
+                    changeFilter={changeFilter}
+                    changeStatus={changeStatus}
+                    filter={ul.filter}
+                />
+            })}
+
         </div>
     );
 }
