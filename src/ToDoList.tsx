@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {FilterValuesType, TodoListType} from "./App";
+import {FilterValuesType} from "./App";
 
 export type TaskType = {
     id: string,
@@ -7,10 +7,14 @@ export type TaskType = {
     title: string
 }
 
+type TaskListType = {
+    [todolistId: string] : TaskType[]
+}
+
 export type ToDoListPropsType = {
     todoListID: string
     title: string
-    tasks: TaskType
+    tasks: TaskListType
     addTask: (todolistID: string, title: string) => void
     removeTask: (todolistID: string, taskID: string) => void
     changeFilter: (todoListID: string, value: FilterValuesType) => void
