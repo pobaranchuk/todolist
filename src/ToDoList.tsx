@@ -22,7 +22,7 @@ export type ToDoListPropsType = {
     filter: FilterValuesType
 }
 
-const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, changeFilter, addTask, changeStatus, filter, todoListID}) => {
+const ToDoList: React.FC<ToDoListPropsType> = ({todoListID, title, tasks, addTask, removeTask, changeFilter, changeStatus, filter}) => {
 
     const getFilteredTasksForRender = (allTasks: Array<TaskType>, filterValue: FilterValuesType): Array<TaskType> => {
         switch (filterValue) {
@@ -35,7 +35,7 @@ const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, change
         }
     }
 
-    const listItems: Array<JSX.Element> = tasks.map((task) => {
+    const listItems: Array<JSX.Element> = tasks[todoListID].map((task) => {
         const onClickRemoveTaskHandler = () =>  removeTask(todoListID ,task.id)
         const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {changeStatus(todoListID, task.id, e.currentTarget.checked)}
         return (
