@@ -2,9 +2,9 @@ import React, {ChangeEvent, useState} from 'react';
 import {FilterValuesType} from "./App";
 
 export type TaskType = {
-    id: string,
-    isDone: boolean,
+    id: string
     title: string
+    isDone: boolean
 }
 
 type TaskListType = {
@@ -47,7 +47,7 @@ const ToDoList: React.FC<ToDoListPropsType> = ({todoListID, title, tasks, addTas
         )
     })
 
-    const tasksList: JSX.Element = tasks.length
+    const tasksList: JSX.Element = tasks[todoListID].length
         ? <ul>{listItems}</ul>
         : <span>Your tasksList is empty</span>
 
