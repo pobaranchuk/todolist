@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {FilterValuesType} from "./App";
+import {FilterValuesType, TodoListType} from "./App";
 
 export type TaskType = {
     id: string,
@@ -10,7 +10,7 @@ export type TaskType = {
 export type ToDoListPropsType = {
     todoListID: string
     title: string
-    tasks: Array<TaskType>
+    tasks: TaskType
     addTask: (todolistID: string, title: string) => void
     removeTask: (todolistID: string, taskID: string) => void
     changeFilter: (todoListID: string, value: FilterValuesType) => void
@@ -20,9 +20,20 @@ export type ToDoListPropsType = {
 
 const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, changeFilter, addTask, changeStatus, filter, todoListID}) => {
 
+    const getFilteredTasksForRender = (allTasks: Array<TaskType>, filterValue: FilterValuesType): Array<TaskType> => {
+        switch (filterValue) {
+            case "Active":
+                return allTasks.filter(task => !task.isDone)
+            case "Completed":
+                return allTasks.filter(task => task.isDone)
+            default:
+                return allTasks
+        }
+    }
+
     const listItems: Array<JSX.Element> = tasks.map((task) => {
-        const onClickRemoveTaskHandler = () =>  removeTask(task.id)
-        const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {changeStatus(task.id, e.currentTarget.checked)}
+        const onClickRemoveTaskHandler = () =>  removeTask(todoListID ,task.id)
+        const onStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {changeStatus(todoListID, task.id, e.currentTarget.checked)}
         return (
             <li key={task.id} className={task.isDone ? "is-done": ""}>
                 <input type="checkbox" onChange={onStatusChangeHandler} checked={task.isDone}/>
@@ -46,7 +57,7 @@ const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, change
         setError(null)
         if(e.key === 'Enter'){
             if(newTaskTitle.trim() !== ""){
-                addTask(newTaskTitle);
+                addTask(todoListID ,newTaskTitle);
                 setNewTaskTitle("")// очистить поле инпута после нажания на плюс. То есть будет перерисовка в поле инпут
             }
             else {
@@ -56,7 +67,7 @@ const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, change
     }
     const addTaskHandler = () => {
         if(newTaskTitle.trim() !== ""){
-            addTask(newTaskTitle);
+            addTask(todoListID, newTaskTitle);
             setNewTaskTitle("")// очистить поле инпута после нажания на плюс. То есть будет перерисовка в поле инпут
         }
         else {
@@ -79,9 +90,9 @@ const ToDoList: React.FC<ToDoListPropsType> = ({title, tasks, removeTask, change
                 </div>
                 {tasksList}
                 <div>
-                    <button className={filter === "All" ? "active-filter": ""} onClick={(e)=>changeFilter("All")}>All</button>
-                    <button className={filter === "Active" ? "active-filter": ""} onClick={(e)=>changeFilter("Active")}>Active</button>
-                    <button className={filter === "Completed" ? "active-filter": ""} onClick={(e)=>changeFilter("Completed")}>Completed</button>
+                    <button className={filter === "All" ? "active-filter": ""} onClick={(e)=>changeFilter(todoListID ,"All")}>All</button>
+                    <button className={filter === "Active" ? "active-filter": ""} onClick={(e)=>changeFilter(todoListID, "Active")}>Active</button>
+                    <button className={filter === "Completed" ? "active-filter": ""} onClick={(e)=>changeFilter(todoListID, "Completed")}>Completed</button>
                 </div>
             </div>
         </div>

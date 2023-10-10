@@ -6,13 +6,12 @@ import {v1} from "uuid";
 
 export type FilterValuesType = "All" | "Active" | "Completed"
 
-type TodoListType = {
+export type TodoListType = {
     id: string
     title: string
     filter: FilterValuesType
 }
 
-//CRUD
 function App() {
 
     let todolistID1=v1();
@@ -40,15 +39,6 @@ function App() {
         ]
     });
 
-    //redux
-
-    // const [tasks, setTasks] = useState([
-    //     {id: v1(), isDone: true, title: "HTML&CSS"},
-    //     {id: v1(), isDone: true, title: "JS/TS"},
-    //     {id: v1(), isDone: false, title: "REACT"},
-    //     {id: v1(), isDone: true, title: "REDUX"}
-    // ])
-
     const removeTask = (todolistId: string ,taskId: string) => {
         setTasks({...tasks, [todolistId]: tasks[todolistId].filter(t=> t.id !== taskId)})
     }
@@ -57,7 +47,7 @@ function App() {
         let newTask = {id: v1(), title: title, isDone: false}
         setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
     }
-// UI:
+
     const changeStatus = (todolistID: string, taskID: string, isDone: boolean) => {
         setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, isDone: isDone} : el)})
     }
@@ -71,18 +61,6 @@ function App() {
         delete tasks[todolistID]
     }
 
-    const getFilteredTasksForRender = (allTasks: Array<TaskType>, filterValue: FilterValuesType): Array<TaskType> => {
-        switch (filterValue) {
-            case "Active":
-                return allTasks.filter(task => !task.isDone)
-            case "Completed":
-                return allTasks.filter(task => task.isDone)
-            default:
-                return allTasks
-        }
-    }
-
-    const filteredTasksForRender: Array<TaskType> = getFilteredTasksForRender(tasks, filter)
 
     return (
         <div className="App">
@@ -91,7 +69,7 @@ function App() {
                     key={ul.id}
                     todoListID={ul.id}
                     title={ul.title}
-                    tasks={filteredTasksForRender}
+                    tasks={tasks}
                     addTask={addTask}
                     removeTask={removeTask}
                     changeFilter={changeFilter}
