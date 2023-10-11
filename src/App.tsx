@@ -54,17 +54,7 @@ function App() {
 
     const changeFilter = (todoListID: string, value: FilterValuesType) => {
         setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: value} : el))
-        debugger
-        switch (value) {
-            case "Active":
-                setTasks({...tasks, [todoListID]: tasks[todoListID].filter(t=> !t.isDone )})
-                break
-            case "Completed":
-                setTasks({...tasks, [todoListID]: tasks[todoListID].filter(t=> t.isDone )})
-                break
-            default:
-                setTasks({...tasks})
-        }
+
     }
 
     const removeTodoList = (todolistID: string) =>  {

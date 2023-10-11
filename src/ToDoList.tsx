@@ -24,15 +24,15 @@ export type ToDoListPropsType = {
 
 const ToDoList: React.FC<ToDoListPropsType> = ({todoListID, title, tasks, addTask, removeTask, changeFilter, changeStatus, filter}) => {
 
-    const getFilteredTasksForRender = (allTasks: Array<TaskType>, filterValue: FilterValuesType): Array<TaskType> => {
-        switch (filterValue) {
-            case "Active":
-                return allTasks.filter(task => !task.isDone)
-            case "Completed":
-                return allTasks.filter(task => task.isDone)
-            default:
-                return allTasks
-        }
+    switch (filter) {
+        case "Active":
+            tasks = {[todoListID]: tasks[todoListID].filter(t => !t.isDone)}
+            break
+        case "Completed":
+            tasks = {[todoListID]: tasks[todoListID].filter(t => t.isDone)}
+            break
+        default:
+            tasks = {...tasks}
     }
 
     const listItems: Array<JSX.Element> = tasks[todoListID].map((task) => {
