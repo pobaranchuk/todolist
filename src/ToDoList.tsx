@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import Button from '@mui/material/Button';
 
 export type TaskType = {
     id: string
@@ -98,9 +99,9 @@ export const ToDoList: React.FC<ToDoListPropsType> = ({
                 <AddItemForm onClick={addTaskHandler} />
                 {tasksList}
                 <div>
-                    <button className={filter === "All" ? "active-filter" : ""}
+                    <Button variant="contained" size={"small"} className={filter === "All" ? "active-filter" : ""}
                             onClick={() => changeFilter(todoListID, "All")}>All
-                    </button>
+                    </Button>
                     <button className={filter === "Active" ? "active-filter" : ""}
                             onClick={() => changeFilter(todoListID, "Active")}>Active
                     </button>

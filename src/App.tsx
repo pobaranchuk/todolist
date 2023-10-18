@@ -59,7 +59,6 @@ function App() {
 
     const changeFilter = (todoListID: string, value: FilterValuesType) => {
         setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: value} : el))
-
     }
     const addTodoList = (title: string) => {
         let newToDoListId = v1()
