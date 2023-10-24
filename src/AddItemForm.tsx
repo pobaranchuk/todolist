@@ -1,7 +1,9 @@
 import React, {ChangeEvent, useState} from 'react';
+import Button from '@mui/material/Button';
+import {TextField} from "@mui/material";
 
-type AddItemFormPropsType ={
-    onClick: ( title: string) => void
+type AddItemFormPropsType = {
+    onClick: (title: string) => void
 }
 export const AddItemForm: React.FC<AddItemFormPropsType> = ({onClick}) => {
 
@@ -32,17 +34,29 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = ({onClick}) => {
             }
         }
     }
+    const stylesButton = {
+        maxWidth: '38px',
+        maxHeight: '38px',
+        minWidth: '38px',
+        minHeight: '38px',
+        backgroundColor: 'blue'
+    }
 
 
     return (
         <div>
-            <input value={newTaskTitle}
-                   onChange={onChangeHandler}
-                   onKeyDown={onKeyPressHandler}
-                   className={error ? "error" : ""}
+            <TextField id="outlined-basic"
+                       label={error ? error : "type something..."}
+                       variant="outlined"
+                       value={newTaskTitle}
+                       size={"small"}
+                       error={!!error}
+                       onChange={onChangeHandler}
+                       onKeyDown={onKeyPressHandler}
+                       // className={error ? "error" : ""}
             />
-            <button onClick={addTaskHandler}>+</button>
-            {error && <div className={"error-message"}>{error}</div>}
+            <Button onClick={addTaskHandler} style={stylesButton}>+</Button>
+            {/*{error && <div className={"error-message"}>{error}</div>}*/}
         </div>
     );
 };

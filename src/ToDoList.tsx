@@ -3,6 +3,10 @@ import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton/IconButton';
+//import {Delete} from "@mui/icons-material"; будет долго грузит
+import DeleteIcon from '@mui/icons-material/Delete';
+import Checkbox from '@mui/material/Checkbox';
 
 export type TaskType = {
     id: string
@@ -19,7 +23,7 @@ export type ToDoListPropsType = {
     title: string
     tasks: TaskListType
     addTask: (todolistID: string, title: string) => void
-    updateTask: (todolistID: string,  taskID: string, title: string) => void
+    updateTask: (todolistID: string, taskID: string, title: string) => void
     removeTask: (todolistID: string, taskID: string) => void
     changeFilter: (todoListID: string, value: FilterValuesType) => void
     changeStatus: (todolistID: string, taskID: string, isDone: boolean) => void
@@ -29,18 +33,18 @@ export type ToDoListPropsType = {
 }
 
 export const ToDoList: React.FC<ToDoListPropsType> = ({
-                                                   todoListID,
-                                                   title,
-                                                   tasks,
-                                                   addTask,
-                                                   updateTask,
-                                                   removeTask,
-                                                   changeFilter,
-                                                   changeStatus,
-                                                   filter,
-                                                   removeTodoList,
-                                                   updateToDoList
-                                               }) => {
+                                                          todoListID,
+                                                          title,
+                                                          tasks,
+                                                          addTask,
+                                                          updateTask,
+                                                          removeTask,
+                                                          changeFilter,
+                                                          changeStatus,
+                                                          filter,
+                                                          removeTodoList,
+                                                          updateToDoList
+                                                      }) => {
 
     switch (filter) {
         case "Active":
@@ -58,11 +62,11 @@ export const ToDoList: React.FC<ToDoListPropsType> = ({
         addTask(todoListID, newTaskTitle)
     }
 
-    const updateTaskHandler = (tID:string,newTitle: string) => {
+    const updateTaskHandler = (tID: string, newTitle: string) => {
         updateTask(todoListID, tID, newTitle)
     }
 
-    const updateToDoListHandler =(newTitle:string) => {
+    const updateToDoListHandler = (newTitle: string) => {
         updateToDoList(todoListID, newTitle)
     }
 
@@ -77,9 +81,12 @@ export const ToDoList: React.FC<ToDoListPropsType> = ({
         }
         return (
             <li key={task.id} className={task.isDone ? "is-done" : ""}>
-                <input type="checkbox" onChange={onStatusChangeHandler} checked={task.isDone}/>
-                <EditableSpan oldTitle={task.title} onClick={(newTitle)=>updateTaskHandler(task.id, newTitle)}/>
-                <button onClick={onClickRemoveTaskHandler}>✖</button>
+                <Checkbox onChange={onStatusChangeHandler} checked={task.isDone}/>
+                <EditableSpan oldTitle={task.title} onClick={(newTitle) => updateTaskHandler(task.id, newTitle)}/>
+                <IconButton aria-label="delete" onClick={onClickRemoveTaskHandler}>
+                    <DeleteIcon/>
+                </IconButton>
+
             </li>
         )
     })
@@ -94,20 +101,22 @@ export const ToDoList: React.FC<ToDoListPropsType> = ({
                 <h3>
                     <EditableSpan oldTitle={title} onClick={updateToDoListHandler}/>
                     {/*{title}*/}
-                    <button onClick={removeTodoListHandler}>✖</button>
+                    <IconButton aria-label="delete" onClick={removeTodoListHandler}>
+                        <DeleteIcon/>
+                    </IconButton>
                 </h3>
-                <AddItemForm onClick={addTaskHandler} />
+                <AddItemForm onClick={addTaskHandler}/>
                 {tasksList}
                 <div>
-                    <Button variant="contained" size={"small"} className={filter === "All" ? "active-filter" : ""}
+                    <Button variant={filter === "All" ? "outlined" : "contained"} color="success" size={"small"}
                             onClick={() => changeFilter(todoListID, "All")}>All
                     </Button>
-                    <button className={filter === "Active" ? "active-filter" : ""}
+                    <Button variant={filter === "Active" ? "outlined" : "contained"} color="primary" size={"small"}
                             onClick={() => changeFilter(todoListID, "Active")}>Active
-                    </button>
-                    <button className={filter === "Completed" ? "active-filter" : ""}
+                    </Button>
+                    <Button variant={filter === "Completed" ? "outlined" : "contained"} color="error" size={"small"}
                             onClick={() => changeFilter(todoListID, "Completed")}>Completed
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>
