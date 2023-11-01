@@ -10,16 +10,16 @@ export const todolistsReducer = (state: TodoListType[], action: todolistsReducer
             let newTodolist: TodoListType = {id: v1(), title: action.payload.title, filter: 'All'};
             return [...state, newTodolist]
         }
-        case "CHANGE-TODOLIST-TITLE":{
-            return  state.map(el=>el.id===action.payload.id ? {...el,title:action.payload.title} : el)
+        case "CHANGE-TODOLIST-TITLE": {
+            return state.map(el => el.id === action.payload.id ? {...el, title: action.payload.title} : el)
         }
-        case "CHANGE-TODOLIST-FILTER":{
+        case "CHANGE-TODOLIST-FILTER": {
             // let todolist = todolists.find(tl => tl.id === todolistId);
             // if (todolist) {
             //     todolist.filter = value;
             //     setTodolists([...todolists])
             // }
-            return state.map(el=>el.id===action.payload.id ? {...el,filter:action.payload.filter}: el)
+            return state.map(el => el.id === action.payload.id ? {...el, filter: action.payload.filter} : el)
         }
         default:
             return state
@@ -43,20 +43,20 @@ export const addTodolistAC = (title: string) => {
     } as const
 }
 
-type changeTodolistTitleACType=ReturnType<typeof changeTodolistTitleAC>
-export const changeTodolistTitleAC=(id: string, title: string)=>{
-    return{
+type changeTodolistTitleACType = ReturnType<typeof changeTodolistTitleAC>
+export const changeTodolistTitleAC = (id: string, title: string) => {
+    return {
         type: 'CHANGE-TODOLIST-TITLE',
-        payload:{id,title}
-    }as const
+        payload: {id, title}
+    } as const
 }
 
-type changeFilterACType=ReturnType<typeof changeFilterAC>
-export const changeFilterAC=(filter: FilterValuesType, id: string)=>{
-    return{
+type changeFilterACType = ReturnType<typeof changeFilterAC>
+export const changeFilterAC = (filter: FilterValuesType, id: string) => {
+    return {
         type: 'CHANGE-TODOLIST-FILTER',
-        payload:{
-            id,filter
+        payload: {
+            id, filter
         }
-    }as const
+    } as const
 }
