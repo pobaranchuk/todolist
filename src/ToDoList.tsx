@@ -4,9 +4,8 @@ import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton/IconButton';
-//import {Delete} from "@mui/icons-material"; будет долго грузит
 import DeleteIcon from '@mui/icons-material/Delete';
-import Checkbox from '@mui/material/Checkbox';
+import Checkbox from '@mui/material/Checkbox/Checkbox';
 
 export type TaskType = {
     id: string
@@ -57,7 +56,6 @@ export const ToDoList: React.FC<ToDoListPropsType> = ({
             tasks = {...tasks}
     }
 
-
     const addTaskHandler = (newTaskTitle: string) => {
         addTask(todoListID, newTaskTitle)
     }
@@ -86,21 +84,19 @@ export const ToDoList: React.FC<ToDoListPropsType> = ({
                 <IconButton aria-label="delete" onClick={onClickRemoveTaskHandler}>
                     <DeleteIcon/>
                 </IconButton>
-
             </li>
         )
     })
 
     const tasksList: JSX.Element = tasks[todoListID].length
         ? <ul>{listItems}</ul>
-        : <span>Your tasksList is empty</span>
+        : <span>Your tasks list is empty</span>
 
     return (
         <div className="todolist">
             <div>
                 <h3>
                     <EditableSpan oldTitle={title} onClick={updateToDoListHandler}/>
-                    {/*{title}*/}
                     <IconButton aria-label="delete" onClick={removeTodoListHandler}>
                         <DeleteIcon/>
                     </IconButton>
