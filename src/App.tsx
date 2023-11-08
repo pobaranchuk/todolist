@@ -82,27 +82,27 @@ function App() {
     return (
         <div className="App">
             <ButtonAppBar/>
-            <Container fixed >
-                <Grid container style={{margin:"20px"}}>
+            <Container fixed>
+                <Grid container style={{margin: "20px"}}>
                     <AddItemForm onClick={addTodoList}/>
                 </Grid>
                 <Grid container>
                     {todoLists.map((ul) => {
-                        return <Paper elevation={3} style={{padding:'20px',margin:"10px"}}>
+                        return <Paper elevation={3} style={{padding: '20px', margin: "10px"}}>
                             <ToDoList
-                            key={ul.id}
-                            todoListID={ul.id}
-                            title={ul.title}
-                            tasks={tasks}
-                            addTask={addTask}
-                            updateTask={updateTask}
-                            removeTask={removeTask}
-                            changeFilter={changeFilter}
-                            changeStatus={changeStatus}
-                            filter={ul.filter}
-                            removeTodoList={removeTodoList}
-                            updateToDoList={updateToDoList}
-                        />
+                                key={ul.id}
+                                todoListID={ul.id}
+                                title={ul.title}
+                                tasks={tasks}
+                                addTask={addTask}
+                                updateTask={updateTask}
+                                removeTask={removeTask}
+                                changeFilter={changeFilter}
+                                changeStatus={changeStatus}
+                                filter={ul.filter}
+                                removeTodoList={removeTodoList}
+                                updateToDoList={updateToDoList}
+                            />
                         </Paper>
                     })}
                 </Grid>
