@@ -1,4 +1,4 @@
-import {TasksStateType, TaskType} from "../ToDoList";
+import {TasksStateType} from "../ToDoList";
 import {v1} from "uuid";
 
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>

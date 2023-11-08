@@ -81,3 +81,4 @@ test('status of specified task should be changed', () => {
     expect(endState["todolistId1"][1].isDone).toBe(true);
 
 });
+
