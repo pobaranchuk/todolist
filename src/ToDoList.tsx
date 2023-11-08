@@ -13,14 +13,14 @@ export type TaskType = {
     isDone: boolean
 }
 
-type TaskListType = {
+export type TasksStateType = {
     [todolistId: string]: TaskType[]
 }
 
 export type ToDoListPropsType = {
     todoListID: string
     title: string
-    tasks: TaskListType
+    tasks: TasksStateType
     addTask: (todolistID: string, title: string) => void
     updateTask: (todolistID: string, taskID: string, title: string) => void
     removeTask: (todolistID: string, taskID: string) => void
