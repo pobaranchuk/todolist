@@ -4,8 +4,13 @@ import {v1} from "uuid";
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 export type AddTaskActionType = ReturnType<typeof addTaskAC>
 export type ChangeTaskStatusActionType = ReturnType<typeof changeTaskStatusAC>
+export type ChangeTitleStatusActionType = ReturnType<typeof changeTitleStatusAC>
 
-type ActionsType = RemoveTaskActionType | AddTaskActionType | ChangeTaskStatusActionType
+type ActionsType = RemoveTaskActionType
+    | AddTaskActionType
+    | ChangeTaskStatusActionType
+    | ChangeTitleStatusActionType
+
 
 export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
     switch (action.type) {
@@ -18,11 +23,22 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
         }
         case 'ADD-TASK': {
             let newTask = {id: v1(), title: action.title, isDone: false}
-            return {...state, [action.todolistId]: [newTask, ...state[action.todolistId]]}
+            return {
+                ...state,
+                [action.todolistId]: [newTask, ...state[action.todolistId]]}
         }
         case 'CHANGE-TASK-STATUS': {
-            return {...state, [action.todolistId] : state[action.todolistId]
+            return {
+                ...state,
+                [action.todolistId] : state[action.todolistId]
                     .map(t => t.id === action.taskId ? {...t, isDone : action.isDone}: t)}
+        }
+        case "CHANGE-TASK-TITLE": {
+            return {
+                ...state,
+                [action.todolistId] : state[action.todolistId]
+                    .map(t => t.id === action.taskId ? {...t, title : action.title}: t)
+            }
         }
         default:
             throw new Error("I don't understand this type")
@@ -38,4 +54,8 @@ export const addTaskAC = (title: string, todolistId: string) => {
 
 export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string) => {
     return {type: "CHANGE-TASK-STATUS", taskId, isDone, todolistId} as const
+}
+
+export const changeTitleStatusAC = (taskId: string, title: string, todolistId: string) => {
+    return { type: "CHANGE-TASK-TITLE", taskId, title, todolistId} as const
 }
