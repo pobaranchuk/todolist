@@ -1,4 +1,4 @@
-import {addTaskAC, changeTaskStatusAC, changeTitleStatusAC, removeTaskAC, tasksReducer} from "./task-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./task-reducer";
 import {TasksStateType} from "../ToDoList";
 import {addTodolistAC, removeTodolistAC} from "./todolists-reducer";
 
@@ -60,7 +60,7 @@ test('status of specified task should be changed', () => {
 
 test('title of specified task should be changed', () => {
 
-    const action = changeTitleStatusAC("2", "beer", "todolistId2");
+    const action = changeTaskTitleAC("2", "beer", "todolistId2");
     const endState = tasksReducer(startState, action)
 
     expect(endState["todolistId2"][1].title).toBe("beer");
@@ -93,4 +93,3 @@ test('property with todolistId should be deleted', () => {
     expect(keys.length).toBe(1);
     expect(endState["todolistId2"]).not.toBeDefined();
 });
-

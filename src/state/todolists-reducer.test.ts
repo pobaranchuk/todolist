@@ -1,6 +1,6 @@
 import {
     addTodolistAC,
-    changeFilterAC,
+    changeToDoListFilterAC,
     changeTodolistTitleAC,
     removeTodolistAC,
     todolistsReducer
@@ -69,7 +69,7 @@ test('correct filter of todolist should be changed', () => {
     // };
 
     // const endState = todolistsReducer(startState, action);
-    const endState = todolistsReducer(startState, changeFilterAC(newFilter,todolistId2));
+    const endState = todolistsReducer(startState, changeToDoListFilterAC(newFilter,todolistId2));
 
     expect(endState[0].filter).toBe("All");
     expect(endState[1].filter).toBe(newFilter);

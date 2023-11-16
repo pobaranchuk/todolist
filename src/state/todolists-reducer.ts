@@ -5,7 +5,7 @@ import {v1} from "uuid";
 export type addTodolistACType = ReturnType<typeof addTodolistAC>
 export type removeTodolistACType = ReturnType<typeof removeTodolistAC>
 type changeTodolistTitleACType = ReturnType<typeof changeTodolistTitleAC>
-type changeFilterACType = ReturnType<typeof changeFilterAC>
+type changeFilterACType = ReturnType<typeof changeToDoListFilterAC>
 
 type todolistsReducerType = removeTodolistACType
     | addTodolistACType
@@ -44,6 +44,6 @@ export const changeTodolistTitleAC = (id: string, title: string) => {
     return {type: 'CHANGE-TODOLIST-TITLE', id, title} as const
 }
 
-export const changeFilterAC = (filter: FilterValuesType, id: string) => {
+export const changeToDoListFilterAC = (filter: FilterValuesType, id: string) => {
     return {type: 'CHANGE-TODOLIST-FILTER', id, filter} as const
 }

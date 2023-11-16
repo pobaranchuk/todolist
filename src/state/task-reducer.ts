@@ -5,7 +5,7 @@ import {addTodolistACType, removeTodolistACType} from "./todolists-reducer";
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 export type AddTaskActionType = ReturnType<typeof addTaskAC>
 export type ChangeTaskStatusActionType = ReturnType<typeof changeTaskStatusAC>
-export type ChangeTitleStatusActionType = ReturnType<typeof changeTitleStatusAC>
+export type ChangeTitleStatusActionType = ReturnType<typeof changeTaskTitleAC>
 
 type ActionsType = RemoveTaskActionType
     | AddTaskActionType
@@ -75,6 +75,6 @@ export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: 
     return {type: "CHANGE-TASK-STATUS", taskId, isDone, todolistId} as const
 }
 
-export const changeTitleStatusAC = (taskId: string, title: string, todolistId: string) => {
+export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string) => {
     return {type: "CHANGE-TASK-TITLE", taskId, title, todolistId} as const
 }
