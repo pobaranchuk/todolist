@@ -84,10 +84,10 @@ function AppWithRedux() {
                     <AddItemForm onClick={addToDoList}/>
                 </Grid>
                 <Grid container>
-                    {todoLists.map((ul) => {
+                    {todoLists.map((ul, index) => {
                         return <Paper elevation={3} style={{padding: '20px', margin: "10px"}}>
                             <ToDoList
-                                key={ul.id}
+                                key={index}
                                 todoListID={ul.id}
                                 title={ul.title}
                                 tasks={tasks}
