@@ -23,7 +23,7 @@ export type TodoListType = {
     filter: FilterValuesType
 }
 
-function AppWithReducer() {
+function AppWithRedux() {
 
     let todolistID1 = v1();
     let todolistID2 = v1();
@@ -65,28 +65,19 @@ function AppWithReducer() {
     }
 
     const changeTaskStatus = (todolistID: string, taskID: string, isDone: boolean) => {
-        //setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, isDone: isDone} : el)})
         let action = changeTaskStatusAC(taskID, isDone, todolistID)
         dispatchToTasks(action)
     }
 
     const changeToDoListFilter = (todoListID: string, filter: FilterValuesType) => {
-        //setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: value} : el))
         let action = changeToDoListFilterAC(filter, todoListID)
         dispatchToTodoLists(action)
     }
 
     const addToDoList = (title: string) => {
-        // let newToDoListId = v1()
-        // const newToDoList: TodoListType = {id: newToDoListId, title: title, filter: 'All'}
-        // setTodoLists([...todoLists, newToDoList])
-        // setTasks({...tasks, [newToDoListId]: []})
-
         let action = addTodolistAC(title)
         dispatchToTasks(action)
         dispatchToTodoLists(action)
-
-
     }
 
     const removeToDoList = (todolistID: string) => {
@@ -132,4 +123,4 @@ function AppWithReducer() {
     );
 }
 
-export default AppWithReducer;
+export default AppWithRedux;
