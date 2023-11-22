@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useCallback, useReducer} from 'react';
 import './App.css';
 import './ToDoList';
 import {TasksStateType, ToDoList} from "./ToDoList";
@@ -35,10 +35,10 @@ function AppWithRedux() {
     const dispatch = useDispatch();
 
 
-    const addTask = (todolistID: string, title: string) => {
+    const addTask = useCallback((todolistID: string, title: string) => {
         let action = addTaskAC(title, todolistID)
         dispatch(action)
-    }
+    }, [dispatch])
 
     const removeTask = (todolistId: string, taskId: string) => {
         let action = removeTaskAC(taskId, todolistId)
@@ -60,10 +60,10 @@ function AppWithRedux() {
         dispatch(action)
     }
 
-    const addToDoList = (title: string) => {
+    const addToDoList = useCallback((title: string) => {
         let action = addTodolistAC(title)
         dispatch(action)
-    }
+    }, [dispatch])
 
     const removeToDoList = (todolistID: string) => {
         let action = removeTodolistAC(todolistID)
@@ -76,6 +76,8 @@ function AppWithRedux() {
         dispatch(action)
     }
 
+
+
     return (
         <div className="App">
             <ButtonAppBar/>
@@ -85,7 +87,7 @@ function AppWithRedux() {
                 </Grid>
                 <Grid container>
                     {todoLists.map((ul, index) => {
-                        return <Paper elevation={3} style={{padding: '20px', margin: "10px"}}>
+                        return <Paper elevation={3} style={{padding: '20px', margin: "10px"}} key={index}>
                             <ToDoList
                                 key={index}
                                 todoListID={ul.id}
@@ -96,7 +98,7 @@ function AppWithRedux() {
                                 removeTask={removeTask}
                                 changeFilter={changeToDoListFilter}
                                 changeStatus={changeTaskStatus}
-                                filter={ul.filter}
+                                filter={ul.filtlesson 11er}
                                 removeTodoList={removeToDoList}
                                 updateToDoList={updateToDoListTitle}
                             />

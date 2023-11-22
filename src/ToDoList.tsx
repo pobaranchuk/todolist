@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -56,9 +56,9 @@ export const ToDoList: React.FC<ToDoListPropsType> = ({
             tasks = {...tasks}
     }
 
-    const addTaskHandler = (newTaskTitle: string) => {
+    const addTaskHandler = useCallback((newTaskTitle: string) => {
         addTask(todoListID, newTaskTitle)
-    }
+    }, [addTask, todoListID])
 
     const updateTaskHandler = (tID: string, newTitle: string) => {
         updateTask(todoListID, tID, newTitle)

@@ -1,11 +1,14 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import Button from '@mui/material/Button';
 import {TextField} from "@mui/material";
 
 type AddItemFormPropsType = {
     onClick: (title: string) => void
 }
-export const AddItemForm: React.FC<AddItemFormPropsType> = ({onClick}) => {
+
+
+export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({onClick}) => {
+    console.log("AddItem form")
 
     const [newTaskTitle, setNewTaskTitle] = useState("")
     const [error, setError] = useState<string | null>(null)
@@ -24,7 +27,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = ({onClick}) => {
     }
 
     const onKeyPressHandler = (e: React.KeyboardEvent<HTMLElement>) => {
-        setError(null)
+        if(error) setError(null)
         if (e.key === 'Enter') {
             if (newTaskTitle.trim() !== "") {
                 onClick(newTaskTitle);
@@ -59,4 +62,4 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = ({onClick}) => {
             {/*{error && <div className={"error-message"}>{error}</div>}*/}
         </div>
     );
-};
+})
