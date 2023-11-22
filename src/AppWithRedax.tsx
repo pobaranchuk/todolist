@@ -98,7 +98,7 @@ function AppWithRedux() {
                                 removeTask={removeTask}
                                 changeFilter={changeToDoListFilter}
                                 changeStatus={changeTaskStatus}
-                                filter={ul.filtlesson 11er}
+                                filter={ul.filter}
                                 removeTodoList={removeToDoList}
                                 updateToDoList={updateToDoListTitle}
                             />
