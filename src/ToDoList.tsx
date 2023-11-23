@@ -1,7 +1,7 @@
-import React, {memo, useCallback, useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
-import Button, {ButtonProps} from '@mui/material/Button';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Task} from "./Task";
@@ -42,14 +42,13 @@ export const ToDoList: React.FC<ToDoListPropsType> = React.memo(({
     let tasksForTodolist = tasks
 
     tasksForTodolist = useMemo(() => {
-        switch (filter) {
-            case "Active":
-                return tasksForTodolist = tasks.filter(t => t.isDone === false)
-            case "Completed":
-                return tasksForTodolist = tasks.filter(t => t.isDone === true)
-            default:
-                return {...tasksForTodolist}
+        if (filter === "Active") {
+            tasksForTodolist = tasksForTodolist.filter(t => t.isDone === false);
         }
+        if (filter === "Completed") {
+            tasksForTodolist = tasksForTodolist.filter(t => t.isDone === true);
+        }
+        return tasksForTodolist
     }, [filter, tasks])
 
     const addTaskHandler = useCallback((newTaskTitle: string) => {
@@ -111,33 +110,33 @@ export const ToDoList: React.FC<ToDoListPropsType> = React.memo(({
                 }
                 {/*{tasksList}*/}
                 <div style={{paddingTop: '10px'}}>
-                    <MyButton variant={filter === "All" ? "outlined" : "text"}
+                    <Button variant={filter === "All" ? "outlined" : "text"}
                               color="success"
                               size={"small"}
                               onClick={onAllClickHandler}>All
-                    </MyButton>
-                    <MyButton variant={filter === "Active" ? "outlined" : "text"}
+                    </Button>
+                    <Button variant={filter === "Active" ? "outlined" : "text"}
                               color="primary"
                               size={"small"}
                               onClick={onActiveClickHandler}>Active
-                    </MyButton>
-                    <MyButton variant={filter === "Completed" ? "outlined" : "text"}
+                    </Button>
+                    <Button variant={filter === "Completed" ? "outlined" : "text"}
                               color="error"
                               size={"small"}
                               onClick={onCompletedClickHandler}>Completed
-                    </MyButton>
+                    </Button>
                 </div>
             </div>
         </div>
     )
 })
 
-interface IMyButton extends ButtonProps {
-}
-
-const MyButton = memo((props: IMyButton) => {
-    return <Button variant={props.variant}
-                   onClick={props.onClick}
-                   color={props.color}>{props.title}
-    </Button>
-})
+// interface IMyButton extends ButtonProps {
+// }
+//
+// // const MyButton = memo((props: IMyButton) => {
+// //     return <Button variant={props.variant}
+// //                    onClick={props.onClick}
+// //                    color={props.color}>{props.title}
+// //     </Button>
+// // })
