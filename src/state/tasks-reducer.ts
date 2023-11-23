@@ -1,6 +1,6 @@
-import {TasksStateType} from "../ToDoList";
 import {v1} from "uuid";
 import {addTodolistACType, removeTodolistACType} from "./todolists-reducer";
+import {TasksStateType} from "../AppWithRedax";
 
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
 export type AddTaskActionType = ReturnType<typeof addTaskAC>
@@ -15,7 +15,7 @@ type ActionsType = RemoveTaskActionType
 
 let initialState: TasksStateType = {}
 
-export const tasksReducer = (state = initialState, action: ActionsType) => {
+export const tasksReducer = (state:TasksStateType = initialState, action: ActionsType) => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             return {
@@ -35,14 +35,14 @@ export const tasksReducer = (state = initialState, action: ActionsType) => {
             return {
                 ...state,
                 [action.todolistId]: state[action.todolistId]
-                    .map(t => t.id === action.taskId ? {...t, isDone: action.isDone} : t)
+                    .map(t => t.id === action.taskId ? {...t, isDone: action.isDone}: t)
             }
         }
         case "CHANGE-TASK-TITLE": {
             return {
                 ...state,
                 [action.todolistId]: state[action.todolistId]
-                    .map(t => t.id === action.taskId ? {...t, title: action.title} : t)
+                    .map(t => t.id === action.taskId ? {...t, title: action.title}: t)
             }
         }
         case "ADD-TODOLIST": {

@@ -8,7 +8,6 @@ type AddItemFormPropsType = {
 
 
 export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({onClick}) => {
-    console.log("AddItem form")
 
     const [newTaskTitle, setNewTaskTitle] = useState("")
     const [error, setError] = useState<string | null>(null)
@@ -29,12 +28,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({onClick}) => {
     const onKeyPressHandler = (e: React.KeyboardEvent<HTMLElement>) => {
         if(error) setError(null)
         if (e.key === 'Enter') {
-            if (newTaskTitle.trim() !== "") {
-                onClick(newTaskTitle);
-                setNewTaskTitle("")// очистить поле инпута после нажания на плюс. То есть будет перерисовка в поле инпут
-            } else {
-                setError("Title is required!")
-            }
+            addTaskHandler()
         }
     }
     const stylesButton = {
@@ -44,7 +38,6 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = memo(({onClick}) => {
         minHeight: '38px',
         backgroundColor: 'blue'
     }
-
 
     return (
         <div>
