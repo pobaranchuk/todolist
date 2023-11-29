@@ -1,8 +1,7 @@
-import React, {useCallback, useReducer} from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import './ToDoList';
 import {TaskType, ToDoList} from "./ToDoList";
-import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
 import ButtonAppBar from "./ButtonAppBar";
 import {Container, Grid, Paper} from "@mui/material";
@@ -10,10 +9,9 @@ import {
     addTodolistAC,
     changeToDoListFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC,
-    todolistsReducer
+    removeTodolistAC
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 
