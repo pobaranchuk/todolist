@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import axios from "axios";
 import {todolistApi} from "../api/todolist-api";
 
 export default {
@@ -11,10 +10,10 @@ export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
 
     useEffect(() => {
-        const promise = todolistApi.getTodolists()
-        promise.then((res) => {
-            setState(res.data)
-        })
+        todolistApi.getTodolists()
+            .then((res) => {
+                setState(res.data)
+            })
     }, [])
 
     return <div>{JSON.stringify(state)}</div>
@@ -39,7 +38,7 @@ export const CreateTodolist = () => {
 export const DeleteTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todoId = '04e9b56c-6918-40cb-b78f-f5562fd8c272'
+        const todoId = '2f387be9-e842-4831-a0d2-d0f3e0c72405'
 
         todolistApi.deleteTotoList(todoId)
             .then((res) => {
@@ -53,8 +52,8 @@ export const DeleteTodolist = () => {
 export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todoId = '3e2c908b-e275-4cb3-8309-b4cb18fb57ed'
-        const payload = {title: 'REDUX'}
+        const todoId = '16aaf028-5207-4c14-aff3-0a2924466201'
+        const payload = {title: 'Yoy yoyoy yoyoy'}
 
         todolistApi.updateTotoList(todoId, payload.title)
             .then((res) => {
@@ -63,4 +62,68 @@ export const UpdateTodolistTitle = () => {
     }, [])
 
     return <div> {JSON.stringify(state)}</div>
+}
+
+
+export const GetTasks = () => {
+
+    const [state, setState] = useState<any>(null)
+
+    useEffect(() => {
+
+        const todolistId = "ee369eec-c3f0-4d10-a507-119423950d10"
+        todolistApi.getTasks(todolistId)
+            .then((res) => {
+                setState(res.data)
+            })
+    }, [])
+
+    return <div>{JSON.stringify(state)}</div>
+}
+
+export const DeleteTasks = () => {
+
+    const [state, setState] = useState<any>(null)
+
+    useEffect(() => {
+        const todolistId = "ee369eec-c3f0-4d10-a507-119423950d10"
+        const taskId = "4cff7a59-15fd-45ac-87a4-d952828dc65d"
+        todolistApi.deleteTask(todolistId, taskId)
+            .then((res) => {
+                setState(res.data)
+            })
+    }, [])
+
+    return <div>{JSON.stringify(state)}</div>
+}
+
+export const CreateTasks = () => {
+    const [state, setState] = useState<any>(null)
+
+    useEffect(() => {
+        const todolistId = "ee369eec-c3f0-4d10-a507-119423950d10"
+        const title = "I want buy milk"
+        todolistApi.createTask(todolistId, title)
+            .then((res) => {
+                setState(res.data)
+            })
+    }, [])
+
+    return <div>{JSON.stringify(state)}</div>
+}
+
+export const UpdateTasks = () => {
+    const [state, setState] = useState<any>(null)
+
+    useEffect(() => {
+        const todolistId = "ee369eec-c3f0-4d10-a507-119423950d10"
+        const title = "I want buy AAAAAA"
+        const taskId = "f4ad16fe-a468-4a16-85a9-72f1fb25f94c"
+        todolistApi.updateTask(todolistId, taskId, title)
+            .then((res) => {
+                setState(res.data)
+            })
+    }, [])
+
+    return <div>{JSON.stringify(state)}</div>
 }
