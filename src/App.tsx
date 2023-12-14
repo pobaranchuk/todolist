@@ -55,7 +55,7 @@
 //         setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, title: title} : el)})
 //     }
 //
-//     const changeStatus = (todolistID: string, taskID: string, isDone: boolean) => {
+//     const changeStatus = (todolistID: string, taskID: string, status: TaskStatuses) => {
 //         setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, isDone: isDone} : el)})
 //     }
 //

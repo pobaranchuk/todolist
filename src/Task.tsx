@@ -3,9 +3,9 @@ import React, {ChangeEvent} from 'react'
 import {EditableSpan} from './EditableSpan'
 import IconButton from "@mui/material/IconButton/IconButton";
 import Delete from "@mui/icons-material/Delete";
-import {TaskType} from "./ToDoList";
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {useDispatch} from "react-redux";
+import {TaskStatuses, TaskType} from "./api/todolist-api";
 
 type TaskPropsType = {
     task: TaskType
@@ -23,7 +23,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked;
-        dispatch(changeTaskStatusAC(task.id, newIsDoneValue, todolistId))
+        dispatch(changeTaskStatusAC(task.id, newIsDoneValue ? TaskStatuses.Completed: TaskStatuses.New, todolistId))
     }
 
     const onTitleChangeHandler = (newValue: string) => {
@@ -31,9 +31,9 @@ export const Task: React.FC<TaskPropsType> = React.memo(({
     }
 
     return (
-        <li key={task.id} className={task.isDone ? 'is-done' : ''}>
+        <li key={task.id} className={task.status === TaskStatuses.Completed ? 'is-done' : ''}>
             <Checkbox
-                checked={task.isDone}
+                checked={task.status === TaskStatuses.Completed}
                 color="primary"
                 onChange={onChangeHandler}
             />

@@ -64,7 +64,7 @@
 //         dispatchToTasks(action)
 //     }
 //
-//     const changeTaskStatus = (todolistID: string, taskID: string, isDone: boolean) => {
+//     const changeTaskStatus = (todolistID: string, taskID: string, status: TaskStatuses) => {
 //         //setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskID ? {...el, isDone: isDone} : el)})
 //         let action = changeTaskStatusAC(taskID, isDone, todolistID)
 //         dispatchToTasks(action)

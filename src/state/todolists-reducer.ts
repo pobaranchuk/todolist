@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {FilterValuesType, TodoListType} from "../AppWithRedax";
+import {TodoListType} from "../api/todolist-api";
 
 
 export type addTodolistACType = ReturnType<typeof addTodolistAC>
@@ -12,15 +12,21 @@ type todolistsReducerType = removeTodolistACType
     | changeTodolistTitleACType
     | changeFilterACType
 
-let initialState: TodoListType[] = []
+export type FilterValuesType = "All" | "Active" | "Completed"
 
-export const todolistsReducer = (state = initialState, action: todolistsReducerType): TodoListType[] => {
+let initialState: TodolistDomainType[] = []
+
+export type TodolistDomainType = TodoListType &{
+    filter: FilterValuesType
+}
+
+export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: todolistsReducerType): TodolistDomainType[] => {
     switch (action.type) {
         case "REMOVE-TODOLIST": {
             return state.filter(el => el.id !== action.id)
         }
         case "ADD-TODOLIST": {
-            let newTodolist: TodoListType = {id: action.todolistId, title: action.title, filter: 'All'};
+            let newTodolist: TodolistDomainType = {id: action.todolistId, title: action.title, filter: 'All', addedDate: " ", order: 0};
             return [...state, newTodolist]
         }
         case "CHANGE-TODOLIST-TITLE": {

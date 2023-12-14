@@ -3,7 +3,6 @@ import {Task} from "../Task";
 import {Provider, useSelector} from "react-redux";
 import {AppRootStateType, store} from "../state/store";
 import {ReduxStoreProviderDecorator} from "../state/ReduxStoreProviderDecorator";
-import {TaskType} from "../ToDoList";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof Task> = {

@@ -5,13 +5,8 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Task} from "./Task";
-import {FilterValuesType} from "./AppWithRedax";
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+import {TaskStatuses, TaskType} from "./api/todolist-api";
+import {FilterValuesType} from "./state/todolists-reducer";
 
 export type ToDoListPropsType = {
     id: string
@@ -22,7 +17,7 @@ export type ToDoListPropsType = {
     updateTaskTitle: (todolistID: string, taskID: string, title: string) => void
     removeTask: (todolistID: string, taskID: string) => void
     changeToDoListFilter: (todoListID: string, value: FilterValuesType) => void
-    changeTaskStatus: (todolistID: string, taskID: string, isDone: boolean) => void
+    changeTaskStatus: (todolistID: string, taskID: string, status: TaskStatuses) => void
     filter: FilterValuesType
     removeTodoList: (todolistID: string) => void
     updateToDoListTitle: (todolistID: string, newTitle: string) => void
@@ -43,10 +38,10 @@ export const ToDoList: React.FC<ToDoListPropsType> = React.memo(({
 
     tasksForTodolist = useMemo(() => {
         if (filter === "Active") {
-            tasksForTodolist = tasksForTodolist.filter(t => t.isDone === false);
+            tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.New);
         }
         if (filter === "Completed") {
-            tasksForTodolist = tasksForTodolist.filter(t => t.isDone === true);
+            tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.Completed);
         }
         return tasksForTodolist
     }, [filter, tasks])
