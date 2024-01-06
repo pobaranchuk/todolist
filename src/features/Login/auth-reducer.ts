@@ -11,10 +11,6 @@ import {
 } from "../../utils/error-utils"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-const initialState: InitialStateType = {
-  isLoggedIn: false,
-}
-
 const slice = createSlice({
   name: "auth",
   initialState: {
@@ -28,65 +24,37 @@ const slice = createSlice({
 })
 
 export const authReducer = slice.reducer
-
-// actions
-
-export const setIsLoggedInAC = (value: boolean) =>
-  ({ type: "login/SET-IS-LOGGED-IN", value }) as const
-
+export const authActions = slice.actions
 // thunks
-export const loginTC =
-  (data: LoginParamsType) =>
-  (
-    dispatch: Dispatch<
-      ActionsType | SetAppStatusActionType | SetAppErrorActionType
-    >,
-  ) => {
-    dispatch(setAppStatusAC("loading"))
-    authAPI
-      .login(data)
-      .then((res) => {
-        if (res.data.resultCode === 0) {
-          dispatch(setIsLoggedInAC(true))
-          dispatch(setAppStatusAC("succeeded"))
-        } else {
-          handleServerAppError(res.data, dispatch)
-        }
-      })
-      .catch((error) => {
-        handleServerNetworkError(error, dispatch)
-      })
-  }
-export const logoutTC =
-  () =>
-  (
-    dispatch: Dispatch<
-      ActionsType | SetAppStatusActionType | SetAppErrorActionType
-    >,
-  ) => {
-    dispatch(setAppStatusAC("loading"))
-    authAPI
-      .logout()
-      .then((res) => {
-        if (res.data.resultCode === 0) {
-          dispatch(setIsLoggedInAC(false))
-          dispatch(setAppStatusAC("succeeded"))
-        } else {
-          handleServerAppError(res.data, dispatch)
-        }
-      })
-      .catch((error) => {
-        handleServerNetworkError(error, dispatch)
-      })
-  }
-
-// types
-
-type ActionsType = ReturnType<typeof setIsLoggedInAC>
-type InitialStateType = {
-  isLoggedIn: boolean
+export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
+  dispatch(setAppStatusAC("loading"))
+  authAPI
+    .login(data)
+    .then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }))
+        dispatch(setAppStatusAC("succeeded"))
+      } else {
+        handleServerAppError(res.data, dispatch)
+      }
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch)
+    })
 }
-
-type ThunkDispatch = Dispatch<
-  ActionsType | SetAppStatusActionType | SetAppErrorActionType
->
+export const logoutTC = () => (dispatch: Dispatch) => {
+  dispatch(setAppStatusAC("loading"))
+  authAPI
+    .logout()
+    .then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }))
+        dispatch(setAppStatusAC("succeeded"))
+      } else {
+        handleServerAppError(res.data, dispatch)
+      }
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch)
+    })
+}
