@@ -78,14 +78,14 @@ export const fetchTasksTC =
     dispatch(appActions.setStatus({ status: "loading" }))
     todolistsAPI.getTasks(todolistId).then((res) => {
       const tasks = res.data.items
-      dispatch(setTasksAC(tasks, todolistId))
+      dispatch(taskActions.setTasks({ tasks, todolistId }))
       dispatch(appActions.setStatus({ status: "succeeded" }))
     })
   }
 export const removeTaskTC =
-  (taskId: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+  (taskId: string, todolistId: string) => (dispatch: Dispatch<any>) => {
     todolistsAPI.deleteTask(todolistId, taskId).then((res) => {
-      const action = removeTaskAC(taskId, todolistId)
+      const action = taskActions.removeTask({ taskId, todolistId })
       dispatch(action)
     })
   }
@@ -97,7 +97,7 @@ export const addTaskTC =
       .then((res) => {
         if (res.data.resultCode === 0) {
           const task = res.data.data.item
-          const action = addTaskAC(task)
+          const action = taskActions.addTask({ task })
           dispatch(action)
           dispatch(appActions.setStatus({ status: "succeeded" }))
         } else {
@@ -114,7 +114,7 @@ export const updateTaskTC =
     domainModel: UpdateDomainTaskModelType,
     todolistId: string,
   ) =>
-  (dispatch: ThunkDispatch, getState: () => AppRootStateType) => {
+  (dispatch: any, getState: () => AppRootStateType) => {
     const state = getState()
     const task = state.tasks[todolistId].find((t) => t.id === taskId)
     if (!task) {
@@ -137,7 +137,11 @@ export const updateTaskTC =
       .updateTask(todolistId, taskId, apiModel)
       .then((res) => {
         if (res.data.resultCode === 0) {
-          const action = updateTaskAC(taskId, domainModel, todolistId)
+          const action = taskActions.updateTask({
+            taskId,
+            model: apiModel,
+            todolistId,
+          })
           dispatch(action)
         } else {
           handleServerAppError(res.data, dispatch)
