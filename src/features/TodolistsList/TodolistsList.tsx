@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect } from "react"
 import { useSelector } from "react-redux"
-import { AppRootStateType } from "../../app/store"
 import {
   addTodolistTC,
-  changeTodolistFilterAC,
   changeTodolistTitleTC,
   fetchTodolistsTC,
   FilterValuesType,
   removeTodolistTC,
+  todolistActions,
   TodolistDomainType,
 } from "./todolists-reducer"
 import {
@@ -22,21 +21,20 @@ import { AddItemForm } from "../../components/AddItemForm/AddItemForm"
 import { Todolist } from "./Todolist/Todolist"
 import { Navigate } from "react-router-dom"
 import { useAppDispatch } from "../../hooks/useAppDispatch"
+import {
+  isLoggedInSelector,
+  tasksSelector,
+  todolistsSelector,
+} from "./todo-lists-selectors"
 
 type PropsType = {
   demo?: boolean
 }
 
 export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
-  const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(
-    (state) => state.todolists,
-  )
-  const tasks = useSelector<AppRootStateType, TasksStateType>(
-    (state) => state.tasks,
-  )
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(
-    (state) => state.auth.isLoggedIn,
-  )
+  const todolists = useSelector(todolistsSelector)
+  const tasks = useSelector(tasksSelector)
+  const isLoggedIn = useSelector(isLoggedInSelector)
 
   const dispatch = useAppDispatch()
 
@@ -80,7 +78,10 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
     value: FilterValuesType,
     todolistId: string,
   ) {
-    const action = changeTodolistFilterAC(todolistId, value)
+    const action = todolistActions.changeTodolistFilter({
+      id: todolistId,
+      filter: value,
+    })
     dispatch(action)
   }, [])
 
