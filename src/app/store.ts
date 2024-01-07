@@ -1,3 +1,7 @@
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+
 import { todolistReducer } from "../features/TodolistsList/todolists-reducer"
 import { combineReducers } from "redux"
 import { ThunkAction, ThunkDispatch } from "redux-thunk"
@@ -34,3 +38,6 @@ export type AppDispatch = ThunkDispatch<
   unknown,
   UnknownAction
 >
+
+//@ts-ignore
+window.store = store

@@ -52,6 +52,11 @@ const slice = createSlice({
     ) => {
       state[action.payload.todolistId] = action.payload.tasks
     },
+    clearTasks: (state, action: PayloadAction) => {
+      // state = {}
+      // return state
+      Object.keys(state).forEach((key) => delete state[key])
+    },
   },
   extraReducers: (builder) => {
     builder
